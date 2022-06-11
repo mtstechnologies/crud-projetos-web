@@ -1,7 +1,9 @@
 package com.mts.crudprojetosweb.api.exceptionhandler;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +15,13 @@ public class Problema {
 	private LocalDateTime dataHora;
 	private String titulo;
 	
+	//criando uma lista com detalhes dos erros e uma classe statica
+	private List<Campo> campos;
 	
+	@AllArgsConstructor
+	@Getter
+	public static class Campo {
+		private String nome;
+		private String mensagem;
+	}
 }
