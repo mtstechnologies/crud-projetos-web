@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mts.crudprojetosweb.domain.model.Pessoa;
 import com.mts.crudprojetosweb.domain.repository.PessoaRepository;
+import com.mts.crudprojetosweb.domain.service.PessoaService;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,7 @@ import lombok.AllArgsConstructor;
 public class PessoaController {
 	
 	private PessoaRepository pessoaRepository;
+	private PessoaService pessoaService;
 	
 	@GetMapping
 	public List<Pessoa> listar() {
@@ -50,7 +52,8 @@ public class PessoaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Pessoa adicionar(@Valid @RequestBody Pessoa pessoa) {
-		return pessoaRepository.save(pessoa);
+		//return pessoaRepository.save(pessoa);
+		return pessoaService.salvar(pessoa);
 	}
 	
 	@PutMapping("/{pessoaId}")
@@ -60,8 +63,8 @@ public class PessoaController {
 		}
 		
 		pessoa.setId(pessoaId);
-		pessoa = pessoaRepository.save(pessoa);
-		
+		//pessoa = pessoaRepository.save(pessoa);
+		pessoa = pessoaService.salvar(pessoa);
 		return ResponseEntity.ok(pessoa);
 	}
 	
@@ -70,8 +73,8 @@ public class PessoaController {
 		if(!pessoaRepository.existsById(pessoaId)) {
 			return ResponseEntity.notFound().build();
 		}
-		pessoaRepository.deleteById(pessoaId);
-		
+		//pessoaRepository.deleteById(pessoaId);
+		pessoaService.remover(pessoaId);
 		return ResponseEntity.noContent().build();
 	}
 }
